@@ -30,10 +30,10 @@ struct Rectangle {
 
 impl Rectangle {
     fn new(x1: f64, y1: f64, x2: f64, y2: f64) -> Rectangle {
-        return Rectangle {
+        Rectangle {
             p1: Point::new(x1, y1),
             p2: Point::new(x2, y2),
-        };
+        }
     }
 
     fn area(&self) -> f64 {

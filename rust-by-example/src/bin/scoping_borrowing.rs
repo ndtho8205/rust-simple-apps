@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 fn destroy_box(boxed: Box<i32>) {
     println!("Destroying box that contains {}", boxed);
 }

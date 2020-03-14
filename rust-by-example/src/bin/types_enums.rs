@@ -39,7 +39,8 @@ fn main() {
     inspect(pasted);
     inspect(clicked);
 
-    println!("");
+    println!();
     println!("Zero is {}", Number::Zero as i32);
     println!("One is {}", Number::One as i32);
+    println!("Two is {}", Number::Two as i32);
 }

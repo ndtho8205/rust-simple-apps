@@ -5,8 +5,8 @@ struct Matrix(f32, f32, f32, f32);
 
 impl fmt::Display for Matrix {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "\n")?;
-        write!(f, "({:5.2} {:5.2})\n", self.0, self.1)?;
+        writeln!(f)?;
+        writeln!(f, "({:5.2} {:5.2})", self.0, self.1)?;
         write!(f, "({:5.2} {:5.2})", self.2, self.3)
     }
 }

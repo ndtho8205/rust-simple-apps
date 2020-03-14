@@ -1,5 +1,5 @@
 [package]
-name = "rust-simple-apps"
+name = "rust-by-example"
 version = "0.1.0"
 authors = ["Tho Nguyen Duc <ndtho8205@gmail.com>"]
 edition = "2018"

@@ -9,9 +9,9 @@ fn main() {
 }
 
 fn add_int(a: i32, b: i32) -> i32 {
-    return a + b;
+    a + b
 }
 
 fn add_float(a: f32, b: f32) -> f32 {
-    return a + b;
+    a + b
 }

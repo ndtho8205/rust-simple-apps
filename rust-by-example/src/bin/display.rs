@@ -54,10 +54,10 @@ impl fmt::Display for List {
 fn main() {
     println!("Display: {0}\nDebug: {0:?}", MinMax(0, 1));
 
-    println!("");
+    println!();
     println!("Display: {0}\nDebug: {0:?}", Point2D { x: 0.0, y: 1.0 });
 
-    println!("");
+    println!();
     println!(
         "Display: {0}\nDebug: {0:?}",
         Complex {
@@ -66,6 +66,6 @@ fn main() {
         }
     );
 
-    println!("");
+    println!();
     println!("Display: {0}\nDebug: {0:?}", List(vec![1, 2, 3]));
 }
