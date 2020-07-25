@@ -124,13 +124,13 @@ impl Game {
 
             let (head_x, head_y) = self.snake.head_position();
 
+            if self.is_game_over() {
+                self.game_over = true;
+            }
+
             if head_x == self.apple.0 && head_y == self.apple.1 {
                 self.snake.grow();
                 self.apple = self.generate_random_apple();
-            }
-
-            if self.snake.is_collided_with_body() || self.is_collided_with_border(head_x, head_y) {
-                self.game_over = true;
             }
 
             self.waiting_time = 0.0;
@@ -143,6 +143,14 @@ impl Game {
 
         self.waiting_time = 0.0;
         self.game_over = false;
+    }
+
+    fn is_game_over(&self) -> bool {
+        let (head_x, head_y) = self.snake.head_position();
+
+        self.snake.is_collided_with_body()
+            || self.is_collided_with_border(head_x, head_y)
+            || ((self.width - 2) * (self.height - 2)) as usize == self.snake.length()
     }
 
     fn generate_random_apple(&self) -> (i32, i32) {
