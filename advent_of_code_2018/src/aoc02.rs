@@ -1,7 +1,7 @@
 // Day 2: Inventory Management System
 
 use std::collections::HashMap;
-use std::fs::File;
+use std::fs::{read_to_string, File};
 use std::io::{BufRead, BufReader};
 use std::path::PathBuf;
 
@@ -40,12 +40,27 @@ fn solve_part1(path: PathBuf) -> TResult<u16> {
 
 #[allow(dead_code)]
 fn solve_part2(path: PathBuf) -> TResult<String> {
-    let reader = match File::open(path) {
-        Ok(f) => BufReader::new(f),
-        Err(e) => return Err(e.into()),
-    };
+    let content = read_to_string(path)?;
+    let lines: Vec<_> = content.lines().collect();
 
-    Ok("".to_string())
+    let mut common_letters = String::from("");
+
+    for i in 0..lines.len() - 1 {
+        for j in i + 1..lines.len() {
+            let same_letters: String = lines[i]
+                .chars()
+                .zip(lines[j].chars())
+                .filter(|(ch1, ch2)| ch1 == ch2)
+                .map(|(ch, _)| ch)
+                .collect();
+
+            if lines[i].len() - same_letters.len() == 1 {
+                common_letters = same_letters;
+            }
+        }
+    }
+
+    Ok(common_letters)
 }
 
 #[cfg(test)]
@@ -70,9 +85,9 @@ mod tests {
         assert_eq!(solve_part2(input).unwrap(), "fgij".to_string());
     }
 
-    //    #[test]
-    //    fn aoc02_part2() {
-    //        let input = PathBuf::from("tests/inputs/aoc02.txt");
-    //        assert_eq!(solve_part2(input).unwrap(), 137041);
-    //    }
+    #[test]
+    fn aoc02_part2() {
+        let input = PathBuf::from("tests/inputs/aoc02.txt");
+        assert_eq!(solve_part2(input).unwrap(), "jbbenqtlaxhivmwyscjukztdp");
+    }
 }
