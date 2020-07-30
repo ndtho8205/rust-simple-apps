@@ -1,34 +1,33 @@
-mod config;
+use std::env;
+
+mod args;
 mod grep;
 
-use std::env;
-use std::fs;
-
-use crate::config::Config;
+use crate::args::Cli;
 use crate::grep::grep;
 
 fn main() -> Result<(), String> {
-    let config = Config::parse(&env::args().collect::<Vec<String>>())?;
+    let cli = Cli::parse(&env::args().collect::<Vec<String>>())?;
 
-    run(&config)?;
+    if cli.help {
+        cli.print_usage();
+        return Ok(());
+    }
+
+    run(&cli)?;
 
     Ok(())
 }
 
-fn run(config: &Config) -> Result<(), String> {
-    let contents = match fs::read_to_string(&config.filename()) {
-        Ok(c) => c,
-        Err(e) => return Err(e.to_string()),
-    };
-
-    let results = grep(config.query(), &contents);
+fn run(cli: &Cli) -> Result<(), String> {
+    let results = grep(&cli.pattern, &cli.path)?;
 
     if results.len() == 0 {
-        println!("Not found.");
+        println!("Not found!");
         return Ok(());
     }
 
-    for line in grep(config.query(), &contents) {
+    for line in results {
         println!("{}", line);
     }
 
