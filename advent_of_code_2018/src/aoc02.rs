@@ -68,7 +68,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn aoc02_part1_fixture_1() {
+    fn aoc02_part1_fixture() {
         let input = PathBuf::from("tests/fixtures/aoc02_1.txt");
         assert_eq!(solve_part1(input).unwrap(), 12);
     }
@@ -80,7 +80,7 @@ mod tests {
     }
 
     #[test]
-    fn aoc02_part2_fixture_1() {
+    fn aoc02_part2_fixture() {
         let input = PathBuf::from("tests/fixtures/aoc02_2.txt");
         assert_eq!(solve_part2(input).unwrap(), "fgij".to_string());
     }
