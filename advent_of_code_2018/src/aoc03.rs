@@ -63,10 +63,9 @@ struct Claim {
 impl Claim {
     fn parse(s: &str) -> Result<Self, TError> {
         lazy_static! {
-        static ref PARSER: Regex = Regex::new(
-            r"#(?P<id>\d+) @ (?P<margin_left>\d+),(?P<margin_top>\d+): (?P<width>\d+)x(?P<height>\d+)",
-        )
-            .unwrap();
+            static ref PARSER: Regex = Regex::new(
+                r"#(?P<id>\d+) @ (?P<margin_left>\d+),(?P<margin_top>\d+): (?P<width>\d+)x(?P<height>\d+)",
+            ).unwrap();
         }
 
         let caps = match PARSER.captures(s) {
