@@ -1,4 +1,4 @@
-// Day 2: Inventory Management System
+// Day 3: No Matter How You Slice It
 
 use std::collections::HashMap;
 use std::fs::read_to_string;
