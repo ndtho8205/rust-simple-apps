@@ -10,8 +10,6 @@ use regex::Regex;
 
 use crate::error::{TError, TResult};
 
-type Point = (i32, i32);
-
 #[allow(dead_code)]
 fn prepare(path: PathBuf) -> TResult<(Vec<Claim>, HashMap<Point, u32>)> {
     let content = read_to_string(path)?;
@@ -51,6 +49,12 @@ fn solve_part2(path: PathBuf) -> TResult<i32> {
     Err("not found".into())
 }
 
+//
+// Data Structures
+//
+
+type Point = (i32, i32);
+
 #[derive(Debug)]
 struct Claim {
     id: i32,
@@ -83,6 +87,18 @@ impl Claim {
     }
 }
 
+impl<'a> IntoIterator for &'a Claim {
+    type Item = Point;
+    type IntoIter = ClaimIter<'a>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        ClaimIter {
+            claim: &self,
+            p: (self.margin_left - 1, self.margin_top),
+        }
+    }
+}
+
 #[derive(Debug)]
 struct ClaimIter<'a> {
     claim: &'a Claim,
@@ -108,17 +124,9 @@ impl<'a> Iterator for ClaimIter<'a> {
     }
 }
 
-impl<'a> IntoIterator for &'a Claim {
-    type Item = Point;
-    type IntoIter = ClaimIter<'a>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        ClaimIter {
-            claim: &self,
-            p: (self.margin_left - 1, self.margin_top),
-        }
-    }
-}
+//
+// Tests
+//
 
 #[cfg(test)]
 mod tests {

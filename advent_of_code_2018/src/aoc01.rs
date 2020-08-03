@@ -45,6 +45,10 @@ fn solve_part2(path: PathBuf) -> TResult<i32> {
     }
 }
 
+//
+// Tests
+//
+
 #[cfg(test)]
 mod tests {
     use super::*;

@@ -63,6 +63,10 @@ fn solve_part2(path: PathBuf) -> TResult<String> {
     Ok(common_letters)
 }
 
+//
+// Tests
+//
+
 #[cfg(test)]
 mod tests {
     use super::*;
