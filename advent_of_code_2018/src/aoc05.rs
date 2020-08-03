@@ -9,7 +9,38 @@ use crate::error::TResult;
 fn solve_part1(path: PathBuf) -> TResult<u32> {
     let contents = read_to_string(path)?;
 
-    let mut polymer: Vec<char> = contents.trim().chars().collect();
+    let polymer = contents.trim();
+    let reacted_polymer = react(polymer);
+
+    Ok(reacted_polymer.len() as u32)
+}
+
+#[allow(dead_code)]
+fn solve_part2(path: PathBuf) -> TResult<u32> {
+    let contents = read_to_string(path)?;
+
+    let polymer = contents.trim();
+    let mut shortest = polymer.len();
+    for c in b'A'..b'Z' {
+        let upper_unit = c as char;
+        let lower_unit = upper_unit.to_ascii_lowercase();
+
+        let cleaned_polymer = polymer.replace(lower_unit, "").replace(upper_unit, "");
+        let reacted_polymer = react(&cleaned_polymer);
+        if reacted_polymer.len() < shortest {
+            shortest = reacted_polymer.len();
+        }
+    }
+
+    Ok(shortest as u32)
+}
+
+//
+// Utility functions
+//
+
+fn react(polymer: &str) -> String {
+    let mut polymer: Vec<char> = polymer.chars().collect();
     let mut reacted_polymer: Vec<char> = vec![];
 
     loop {
@@ -40,17 +71,8 @@ fn solve_part1(path: PathBuf) -> TResult<u32> {
         reacted_polymer.clear();
     }
 
-    Ok(polymer.len() as u32)
+    reacted_polymer.iter().collect::<String>()
 }
-
-#[allow(dead_code)]
-fn solve_part2(path: PathBuf) -> TResult<u32> {
-    unimplemented!();
-}
-
-//
-// Utility functions
-//
 
 fn can_react(first_unit: char, second_unit: char) -> bool {
     if first_unit == second_unit {
@@ -99,16 +121,14 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn aoc05_part2_fixture() {
         let input = PathBuf::from("tests/fixtures/aoc05_1.txt");
-        assert_eq!(solve_part2(input).unwrap(), 0);
+        assert_eq!(solve_part2(input).unwrap(), 4);
     }
 
     #[test]
-    #[ignore]
     fn aoc05_part2() {
         let input = PathBuf::from("tests/inputs/aoc05.txt");
-        assert_eq!(solve_part2(input).unwrap(), 0);
+        assert_eq!(solve_part2(input).unwrap(), 5312);
     }
 }
